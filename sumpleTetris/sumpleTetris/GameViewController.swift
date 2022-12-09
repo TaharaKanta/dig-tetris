@@ -7,12 +7,8 @@
 
 import UIKit
 import SpriteKit
-//import GameplayKit
 
 class GameViewController: UIViewController, GameLogicDelegate{
-    func gameDidEnd(gameLogic: GameLogic) {
-        
-    }
     
     func gameShapeDidLand(gameLogic: GameLogic) {
         
@@ -31,14 +27,6 @@ class GameViewController: UIViewController, GameLogicDelegate{
     
     func gameShapeDidMove(gameLogic: GameLogic) {
         scene.redrawShape(shape: gameLogic.fallingShape!) {}
-    }
-    
-    func gameShapeDidDrop(gameLogic: GameLogic) {
-        
-    }
-    
-    func gameDidLevelUp(gameLogic: GameLogic) {
-        
     }
     
     var scene: GameScene!

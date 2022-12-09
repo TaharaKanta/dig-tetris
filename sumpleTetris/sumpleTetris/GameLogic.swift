@@ -19,17 +19,12 @@ let PointsPerLine = 10
 let LevelThreshold = 500
 
 protocol GameLogicDelegate {
-    func gameDidEnd(gameLogic: GameLogic)
     
     func gameDidStart(gameLogic: GameLogic)
     
     func gameShapeDidLand(gameLogic: GameLogic)
     
     func gameShapeDidMove(gameLogic: GameLogic)
-    
-    func gameShapeDidDrop(gameLogic: GameLogic)
-    
-    func gameDidLevelUp(gameLogic: GameLogic)
 }
 
 class GameLogic {
@@ -50,22 +45,19 @@ class GameLogic {
     func startGame() {
         
         if (nextShape == nil) {
-            nextShape = Shape.randomMock(startingColumn: PreviewColumn, startingRow: PreviewRow)
+            nextShape = Shape.random(startingColumn: PreviewColumn, startingRow: PreviewRow)
         }
         delegate?.gameDidStart(gameLogic: self)
     }
     
     func endGame() {
-        
-        score = 0
-        level = 1
-        delegate?.gameDidEnd(gameLogic: self)
+        debugPrint(#function)
     }
     
     func newShape() -> (fallingShape: Shape?, nextShape: Shape?) {
         
         fallingShape = nextShape
-        nextShape = Shape.randomMock(startingColumn: PreviewColumn, startingRow: PreviewRow)
+        nextShape = Shape.random(startingColumn: PreviewColumn, startingRow: PreviewRow)
         fallingShape?.moveTo(column: StartingColumn, row: StartingRow)
         
         guard detectIllegalPlacement() == false else {
@@ -100,7 +92,7 @@ class GameLogic {
             shape.lowerShapeByOneRow()
         }
         shape.raiseShapeByOneRow()
-        delegate?.gameShapeDidDrop(gameLogic: self)
+
     }
     
     func letShapeFall() {
@@ -209,14 +201,7 @@ class GameLogic {
         if removedLines.count == 0 {
             return ([], [])
         }
-        
-        let pointsEarned = removedLines.count * PointsPerLine * level
-        score += pointsEarned
-        if score >= level * LevelThreshold {
-            level += 1
-            delegate?.gameDidLevelUp(gameLogic: self)
-        }
-        
+
         var fallenBlocks = Array<Array<Block>>()
         for column in 0..<NumColumns {
             var fallenBlocksArray = Array<Block>()

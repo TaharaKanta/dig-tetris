@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-let TickLengthLevelOne = TimeInterval(100)
+let TickLengthLevelOne = TimeInterval(300)
 
 let BlockSize: CGFloat = 20.0
 
@@ -19,8 +19,6 @@ class GameScene: SKScene {
     var tick:(() -> ())?
     var tickLengthMillisec = TickLengthLevelOne
     var lastTick:NSDate?
-    
-    let LayerPosition = CGPoint(x: 6, y: -6)
     
     var shapeLayer = SKNode()
     
@@ -40,7 +38,7 @@ class GameScene: SKScene {
     override init(size: CGSize) {
         super.init(size: size)
         
-        let background = SKSpriteNode(texture:SKTexture(imageNamed: "background"), size:CGSize(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height))
+        let background = SKSpriteNode(texture:SKTexture(imageNamed: "background"), size:CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 200))
         background.position = CGPoint(x: frame.midX, y: frame.midY)
         addChild(background)
         
@@ -97,16 +95,11 @@ class GameScene: SKScene {
             }
             let sprite = SKSpriteNode(texture: texture)
             
-            sprite.position = pointForColumn(column: block.column, row: block.row - 2)
+            sprite.position = pointForColumn(column: block.column, row: block.row + 2)
             sprite.zPosition = 3.0
             shapeLayer.addChild(sprite)
             block.sprite = sprite
-            sprite.alpha = 0.0
-            
-            let moveAction = SKAction.move(to: pointForColumn(column: block.column, row: block.row), duration: TimeInterval(0.2))
-            let fadeInAction = SKAction.fadeAlpha(to: 0.7, duration: 0.4)
-            fadeInAction.timingMode = .easeOut
-            sprite.run(SKAction.group([moveAction, fadeInAction]))
+            sprite.alpha = 1.0
         }
         run(SKAction.wait(forDuration: 0.4), completion: completion)
     }

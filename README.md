@@ -6,4 +6,4 @@
 画面を左右にドラッグ
 
 ## 参考サイト
-[Tetris] (https://github.com/hanjoes/Tetris)
+[Tetris](https://github.com/hanjoes/Tetris)
