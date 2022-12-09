@@ -34,12 +34,11 @@ enum Orientation: Int, CustomStringConvertible {
     }
     
     static func random() -> Orientation {
-        debugPrint(#function,"shape")
         return Orientation(rawValue: Int(arc4random_uniform(NumOrientations)))!
     }
     
     static func rotate(orientation:Orientation, clockwise: Bool) -> Orientation {
-        debugPrint(#function)
+        
         var rotated = orientation.rawValue + (clockwise ? 1 : -1)
         if rotated > Orientation.TwoSeventy.rawValue {
             rotated = Orientation.Zero.rawValue
@@ -74,7 +73,7 @@ class Shape: Hashable, CustomStringConvertible {
     
     // Hashable
     func hash(into hasher: inout Hasher) {
-        debugPrint(#function)
+        
         for block in blocks {
             hasher.combine(block)
         }
@@ -104,7 +103,7 @@ class Shape: Hashable, CustomStringConvertible {
     }
     
     final func initializeBlocks() {
-        debugPrint(#function)
+        
         guard let blockRowColumnTranslations = blockRowColumnPositions[orientation] else {
             return
         }
@@ -115,7 +114,7 @@ class Shape: Hashable, CustomStringConvertible {
     }
     
     final func rotateBlocks(orientation: Orientation) {
-        debugPrint(#function)
+        
         guard let blockRowColumnTranslation: Array<(columnDiff: Int, rowDiff: Int)> = blockRowColumnPositions[orientation] else {
             return
         }
@@ -127,14 +126,14 @@ class Shape: Hashable, CustomStringConvertible {
     }
     
     final func rotateClockwise() {
-        debugPrint(#function)
+        
         let newOrientation = Orientation.rotate(orientation: orientation, clockwise: true)
         rotateBlocks(orientation: newOrientation)
         orientation = newOrientation
     }
     
     final func rotateCounterClockwise() {
-        debugPrint(#function)
+        
         let newOrientation = Orientation.rotate(orientation: orientation, clockwise: false)
         rotateBlocks(orientation: newOrientation)
         orientation = newOrientation
@@ -145,17 +144,17 @@ class Shape: Hashable, CustomStringConvertible {
     }
     
     final func raiseShapeByOneRow() {
-        debugPrint(#function)
+        
         shiftBy(columns: 0, rows: -1)
     }
     
     final func shiftRightByOneColumn() {
-        debugPrint(#function)
+        
         shiftBy(columns: 1, rows: 0)
     }
     
     final func shiftLeftByOneColumn() {
-        debugPrint(#function)
+        
         shiftBy(columns: -1, rows: 0)
     }
     
@@ -169,14 +168,14 @@ class Shape: Hashable, CustomStringConvertible {
     }
     
     final func moveTo(column: Int, row: Int) {
-        debugPrint(#function)
+        
         self.column = column
         self.row = row
         rotateBlocks(orientation: orientation)
     }
     
     final class func randomMock(startingColumn: Int, startingRow: Int) -> Shape {
-        debugPrint(#function)
+        
         return BarShape(column: startingColumn, row: startingRow)
     }
     

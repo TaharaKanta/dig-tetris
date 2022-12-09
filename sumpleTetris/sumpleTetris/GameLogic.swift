@@ -48,7 +48,7 @@ class GameLogic {
     }
     
     func startGame() {
-        debugPrint(#function)
+        
         if (nextShape == nil) {
             nextShape = Shape.randomMock(startingColumn: PreviewColumn, startingRow: PreviewRow)
         }
@@ -56,14 +56,14 @@ class GameLogic {
     }
     
     func endGame() {
-        debugPrint(#function)
+        
         score = 0
         level = 1
         delegate?.gameDidEnd(gameLogic: self)
     }
     
     func newShape() -> (fallingShape: Shape?, nextShape: Shape?) {
-        debugPrint(#function)
+        
         fallingShape = nextShape
         nextShape = Shape.randomMock(startingColumn: PreviewColumn, startingRow: PreviewRow)
         fallingShape?.moveTo(column: StartingColumn, row: StartingRow)
@@ -92,7 +92,7 @@ class GameLogic {
     }
     
     func dropShape() {
-        debugPrint(#function)
+        
         guard let shape = fallingShape else {
             return
         }
@@ -124,7 +124,7 @@ class GameLogic {
     }
     
     func rotateShape() {
-        debugPrint(#function)
+        
         guard let shape = fallingShape else {
             return
         }
@@ -137,7 +137,7 @@ class GameLogic {
     }
     
     func moveShapeLeft() {
-        debugPrint(#function)
+        
         guard let shape = fallingShape else {
             return
         }
@@ -150,7 +150,7 @@ class GameLogic {
     }
     
     func moveShapeRight() {
-        debugPrint(#function)
+        
         guard let shape = fallingShape else {
             return
         }
@@ -163,7 +163,7 @@ class GameLogic {
     }
     
     func settleShape() {
-        debugPrint(#function)
+        
         guard let shape = fallingShape else {
             return
         }
@@ -187,7 +187,7 @@ class GameLogic {
     }
     
     func removeCompletedLines() -> (linesRemoved: Array<Array<Block>>, fallenBlocks: Array<Array<Block>>) {
-        debugPrint(#function)
+        
         var removedLines = Array<Array<Block>>()
         for row in (1..<NumRows).reversed() {
             var rowOfBlocks = Array<Block>()
@@ -243,7 +243,7 @@ class GameLogic {
     }
     
     func removeAllBlocks() -> Array<Array<Block>> {
-        debugPrint(#function)
+        
         var allBlocks = Array<Array<Block>>()
         for row in 0..<NumRows {
             var rowOfBlocks = Array<Block>()

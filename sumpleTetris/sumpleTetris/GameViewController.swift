@@ -11,11 +11,11 @@ import SpriteKit
 
 class GameViewController: UIViewController, GameLogicDelegate{
     func gameDidEnd(gameLogic: GameLogic) {
-        debugPrint(#function)
+        
     }
     
     func gameShapeDidLand(gameLogic: GameLogic) {
-        debugPrint(#function)
+        
         scene.stopTimer()
         self.view.isUserInteractionEnabled = false
         let removedLines = gameLogic.removeCompletedLines()
@@ -34,11 +34,11 @@ class GameViewController: UIViewController, GameLogicDelegate{
     }
     
     func gameShapeDidDrop(gameLogic: GameLogic) {
-        debugPrint(#function)
+        
     }
     
     func gameDidLevelUp(gameLogic: GameLogic) {
-        debugPrint(#function)
+        
     }
     
     var scene: GameScene!
@@ -47,7 +47,7 @@ class GameViewController: UIViewController, GameLogicDelegate{
     var panPointNow: CGPoint?
 
     override func viewDidLoad() {
-        debugPrint(#function)
+        
         super.viewDidLoad()
 
         if let view = self.view as! SKView? {
@@ -56,26 +56,11 @@ class GameViewController: UIViewController, GameLogicDelegate{
             scene.scaleMode = .aspectFill
             view.presentScene(scene)
             
-            // Load the SKScene from 'GameScene.sks'
-//            if let scene = SKScene(fileNamed: "GameScene") {
-//                // Set the scale mode to scale to fit the window
-//                scene.scaleMode = .aspectFill
-//
-//                // Present the scene
-//                view.presentScene(scene)
-//            }
-            
             scene.tick = didTick
             
             gameLogic = GameLogic()
             gameLogic.delegate = self
             gameLogic.startGame()
-            
-            
-            view.ignoresSiblingOrder = true
-            
-            view.showsFPS = true
-            view.showsNodeCount = true
         }
     }
 
@@ -88,7 +73,6 @@ class GameViewController: UIViewController, GameLogicDelegate{
     }
     
     @IBAction func didTap(_ sender:UITapGestureRecognizer){
-        debugPrint("makeTap")
         gameLogic.rotateShape()
     }
     
@@ -120,9 +104,7 @@ class GameViewController: UIViewController, GameLogicDelegate{
 
     
     func gameDidStart(gameLogic: GameLogic) {
-        debugPrint(#function)
-//        levelLabel.text = "\(gameLogic.level)"
-//        scoreLabel.text = "\(gameLogic.score)"
+        
         scene.tickLengthMillisec = TickLengthLevelOne
         if gameLogic.nextShape != nil && gameLogic.nextShape!.blocks[0].sprite == nil {
             scene.addPreviewShapeToScene(shape: gameLogic.nextShape!) {
@@ -138,7 +120,7 @@ class GameViewController: UIViewController, GameLogicDelegate{
     }
     
     func nextShape() {
-        debugPrint(#function)
+        
         let newShapes = gameLogic.newShape()
         guard let fallingShape = newShapes.fallingShape else {
             return

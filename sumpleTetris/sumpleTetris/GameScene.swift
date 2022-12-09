@@ -45,15 +45,11 @@ class GameScene: SKScene {
         addChild(background)
         
         let gameBoard = SKSpriteNode(texture: SKTexture(imageNamed: "gameboard"), size: CGSize(width: BlockSize * CGFloat(NumColumns), height: BlockSize * CGFloat(NumRows)))
-        debugPrint(background.size)
-        debugPrint(gameBoard.size)
         
         gameBoard.zPosition = 2.0
         
         shapeLayer.position = CGPoint(x: -BlockSize * CGFloat(NumColumns)/2, y: BlockSize * CGFloat(NumRows)/2)
         shapeLayer.zPosition = 2.5
-//        shapeLayer.
-//        shapeLayer.
         gameBoard.addChild(shapeLayer)
         background.addChild(gameBoard)
         
@@ -74,12 +70,12 @@ class GameScene: SKScene {
     }
     
     func startTimer() {
-        debugPrint(#function)
+        
         lastTick = NSDate()
     }
     
     func stopTimer() {
-        debugPrint(#function)
+        
         lastTick = nil
     }
     
@@ -91,12 +87,11 @@ class GameScene: SKScene {
     }
     
     func addPreviewShapeToScene(shape: Shape, completion: @escaping () -> ()) {
-        debugPrint(#function)
+        
         for block in shape.blocks {
             var texture = textureCache[block.spriteName]
             
             if texture == nil {
-                debugPrint("texture:nil")
                 texture = SKTexture(imageNamed: block.spriteName)
                 textureCache[block.spriteName] = texture
             }
@@ -117,7 +112,7 @@ class GameScene: SKScene {
     }
     
     func movePreviewShape(shape: Shape, completion: @escaping () -> ()) {
-        debugPrint(#function)
+        
         for block in shape.blocks {
             let sprite = block.sprite!
             let moveTo = pointForColumn(column: block.column, row: block.row)
@@ -143,7 +138,7 @@ class GameScene: SKScene {
     }
     
     func collapsingLines(linesToRemove: Array<Array<Block>>, fallenBlocks: Array<Array<Block>>, completion:@escaping () -> ()) {
-        debugPrint(#function)
+        
         var longestDuration: TimeInterval = 0
         
         for (columnIdx, column) in fallenBlocks.enumerated() {
